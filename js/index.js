@@ -1,6 +1,9 @@
-let a = 100;
-a = "Apple";
+let a = 1;
+a = 'Coding Technyks';
 
 function add(a, b) {
-  return a + b;
+    return a + b; // no type checking
 }
+
+const x = add(1,2);
+console.log(x);
