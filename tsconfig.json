@@ -1,10 +1,17 @@
 {
   "compilerOptions": {
+    // target": "ES6": Konsa Version ma apk apna typescript ka code compile krain ga
     "target": "ES6",
+    // "module": "ES6": Konsa Module use krna import export wala ya require syntax wala.
     "module": "ES6",
+    // "outDir": "./dist": Typescript ka code ko JS ma compile krke kaha rakhna ha.
     "outDir": "./dist",
+    // "rootDir": "./src": TypeScript ki files kaha pr hongi.
     "rootDir": "./src",
-    "strict": true
+    "strict": true,
+    // is se kya hoga ke typescript ko pata chal jay ga ke apka code module ka part ha chahe ap export kr rahe ho ya nhi kr rahe ho.
+    "moduleDetection": "force"
   },
+  // Specificaly btana ha ka konsi files ko include krna ha.
   "include": ["src/**/*.ts"] // This Shows src/**/*.ts include all the direct and nested files inside the src folder with .ts extension at end.
 }

@@ -14,3 +14,7 @@ Isi Liye TypeScript Cathes Err At Compile Time Rather Than Runtime.
 TypeScript Provides Better Auto-Suggestions In Editors Like VS CODE Which Helps you to write you code fast and surity ka ap sahi code likh rha ho.
 TypeScript Support Interfaces, Generics Which JavaScript Lacks.
 Helps Teams Collaborate Better With Clearly Defined TYPES.
+
+npx is a local package runner & tsc reperesent TypeScript Compiler
+
+npx tsc --watch run this to continously listehn changes and transpile the code immediately on each save

@@ -1,1 +1,1 @@
-let firstName: string = "Arslan"
+console.log("Main Ts file")
