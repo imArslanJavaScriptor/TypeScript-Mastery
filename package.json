@@ -1,7 +1,7 @@
 {
   "name": "typescript-mastery",
   "version": "1.0.0",
-  "description": "TypeScript is a Superset of JavaScript\r Browser Don't Understand TypeScript\r Isi Liye Hum Developemnt TypeScript ma krta ha then apne code ko Transpile kr deta ha JavaScript ma so that browser can understand what we written.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
