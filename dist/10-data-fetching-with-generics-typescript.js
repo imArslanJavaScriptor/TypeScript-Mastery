@@ -1,3 +1,4 @@
+// Agr kuch confusing lge to is code ki explanation nikalo,
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -17,4 +18,14 @@ function dataFetcher(url) {
         return data;
     });
 }
+const url = "https://jsonplaceholder.typicode.com/todos";
+dataFetcher(url).then(data => {
+    const titles = data.map(todo => todo.title);
+    console.log(titles);
+});
+const url2 = "https://jsonplaceholder.typicode.com/posts";
+dataFetcher(url2).then(data => {
+    const titles = data.map(post => post.title);
+    console.log(titles);
+});
 export {};
