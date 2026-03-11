@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TypeScript</title>
-  <script defer type="module" src="./dist/06-enums.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="./dist/07-type-casting.js" defer type="module"></script>
   <!--
    Agr console ma Syntax Error: Unexpedted token 'export'
    aye to apni script file ma type='module' set krdena 
   -->
+  <title>Index file</title>
 </head>
-<body>
-  <h1>TypeScirpt Course</h1>
+
+<body style="background-color: #222; color: aliceblue;">
+  <h2>User Form</h2>
+  <form id="user-form">
+    <input type="text" id="name" placeholder="Enter your name" />
+    <input type="number" id="age" placeholder="Enter your age" />
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="output">Output:</div>
 </body>
+
 </html>
