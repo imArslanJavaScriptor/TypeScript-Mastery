@@ -1,43 +1,58 @@
-// const myName = "HM-Arslan"
-// console.log(myName)
+// --- 01-Basics.ts ---
 
-// let arr = ["Apple", "Mango", "Banana", "Orange"]
-// console.log(arr)
+// 1. MODULE SCOPE FIX
+// Adding an empty export ensures TypeScript treats this file as an isolated module.
+// This prevents "Cannot redeclare block-scoped variable" errors when declaring 
+// variables with the same names in other files.
+export {};
 
-// function sayGood() {
-//   console.log("Im Good")
-// }
-// sayGood()
+// ==========================================
+// 2. EXPLICIT TYPING (Type Annotations)
+// ==========================================
+// Explicitly defining the type ensures strict enforcement from the start.
+let userName: string = "Arslan";
+console.log(userName);
 
-// Do files ma same variables hone sa error ata ha if ap kuch export nhi kr te agr ap kuch export nhi krte kis file ma sa to typescript us file ko script ki trha treet krega na ki module ki trha / new file ki trha or sari scripts global scope ka part hoti ha and we know that we can't re dceclare the variables with the same data again in let & const scenario.
+// Best Practice for Arrays: Define the type of elements inside the array.
+let fruits: string[] = ["Apple", "Mango", "Banana", "Orange"];
+console.log(fruits);
 
-// Solutions
-// 1- apne functions and veriables ko export krdo
-// 2- empty export {} sa bhi err chala jata ha.
-// 3- configre file ma change kro. using ➡️ "moduleDetection": "force"
+// ==========================================
+// 3. TYPE INFERENCE
+// ==========================================
+// TypeScript is smart. If you assign a value immediately, it infers the type, 
+// saving you from writing redundant code (e.g., let inferredName: string = "HM" is redundant).
+let inferredName = "HM";      // TS infers type 'string'
+let inferredAge = 20;         // TS infers type 'number'
+let inferredIsAdult = true;   // TS infers type 'boolean'
 
+// inferredName = 10; 
+// ❌ Error: Type 'number' is not assignable to type 'string'.
 
-let userName: string = "Arslan"
-console.log(userName)
+// ==========================================
+// 4. DECLARATION WITHOUT INITIALIZATION
+// ==========================================
+// If you declare a variable without a value, you MUST provide a type annotation.
+// Otherwise, TS assigns it the `any` type, which defeats the purpose of TypeScript.
+let firstName: string; // Fixed a minor typo from your original file ('firsName')
+let age: number;
+let isAdult: boolean;
 
-// type inference:
-// let firstName = "HM"
-// let age = 20
-// let is18 = true
-// firstName = 10 // Not Assignlable to type String
-// jis type sa ap vaiable ko initliza kro uski ki type ko default set krdega.
+// Initialization happens later...
+firstName = "Hassan"; 
+age = 25;
 
+// ==========================================
+// 5. UNION TYPES
+// ==========================================
+// Union types allow a variable to accept more than one type of data.
+let userAge: string | number;
+userAge = 20;   // ✅ Valid
+userAge = "30"; // ✅ Valid
 
-// Variables ko pehle types ke sath initiliza krdena use bd ma krna.
-let firsName: string // firsName sirf string type ka hona chahia.
-let age: number 
-let is18: boolean
-
-
-// union type
-let userAge: string | number
-let isMale: boolean | string = "true"
-
-userAge = 20
-userAge = "30"
-// ab ma userAge ma string or number is ma sa koi bhi value set kr skta hu BCZ of union type.
+// ⚠️ Note on Best Practices:
+// While `boolean | string` is valid, initializing a boolean-like variable 
+// with a string ("true") is an anti-pattern unless you are specifically parsing 
+// raw data (like from a URL query parameter or LocalStorage). 
+// Keep booleans as strict booleans whenever possible.
+let isMale: boolean | string = true; // Better to start with an actual boolean

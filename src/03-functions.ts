@@ -1,72 +1,90 @@
-// functions
+export {};
+
+/**
+ * ==========================================
+ * 1. BASIC FUNCTION TYPES
+ * ==========================================
+ * Always annotate parameters (a, b) and the return type (: number).
+ */
+
+// Function Declaration
 function add(a: number, b: number): number {
-  return a + b
+  return a + b;
 }
 
-const subtract = (a:number, b: number): number =>  {
-  if(a < 0 || b < 0) {
-    console.log("Parameter Value must be greater then 0")
+// Arrow Function with Logic
+const subtract = (a: number, b: number): number => {
+  if (a < 0 || b < 0) {
+    console.warn("Parameter values should be greater than 0 for this logic.");
   }
-  return a - b
-}
+  return a - b;
+};
 
-const multiply = function(a:number, b:number): number {
-  return a * b
-}
+// Function Expression
+const multiply = function (a: number, b: number): number {
+  return a * b;
+};
 
-// In Explicit Return
-const division = (a: number, b:number): number => a / b
+// Arrow Function: Implicit Return (Concise)
+const division = (a: number, b: number): number => a / b;
 
-console.log(add(20, 30))
-console.log(subtract(50, 20))
-console.log(multiply(2, 5))
-console.log(division(10, 2))
+/**
+ * ==========================================
+ * 2. VOID VS. NEVER
+ * ==========================================
+ */
 
-// agr function kuch return na kre to hum void type use krte ha
+// VOID: Use when a function finishes its execution but returns no value.
 function greet(name: string): void {
-  console.log(`Hello ${name}`)
+  console.log(`Hello ${name}`);
 }
 
-greet("Arslan")
-
-// Conditional parameter
-function greetNameConditionaly(name?: string): void {
-  console.log(`Hello ${name?? "Guest"}`)
-}
-greetNameConditionaly()
-
-// Default Parameter
-function greetDefaultParameter(name: string = "Default Guest") {
-  console.log(`Hello ${name?? "Guest"}`)
-}
-greetDefaultParameter()
-
-// Type: never
-// never type tbhi use hota ha jb koi fucntion kuch bbhi return na trka ho & in do ma se koi case ho
-// 1- function err throw kr rha ho
-// 2- function ma infinite loop chal rhi ho.
-//IMP: Never ka mtlab Function kabhi bhi finish nahi hota
-
+// NEVER: Use when a function NEVER finishes (throws error or infinite loop).
+// It represents a value that will never occur.
 function throwError(message: string): never {
-  throw new Error(message)
+  throw new Error(message);
 }
-// throwError("Custom Error Message")
 
+/**
+ * ==========================================
+ * 3. PARAMETER VARIATIONS
+ * ==========================================
+ */
 
-// Function Overloading
-// Define the signature of the 
+// Optional Parameter (?): 'name' can be string or undefined.
+function greetOptional(name?: string): void {
+  // Using Nullish Coalescing (??) to provide a fallback
+  console.log(`Hello ${name ?? "Guest"}`);
+}
+
+// Default Parameter: If no value is passed, "Default Guest" is used.
+// Note: TS infers the type from the default value, so :string is optional here.
+function greetDefault(name: string = "Default Guest"): void {
+  console.log(`Hello ${name}`);
+}
+
+/**
+ * ==========================================
+ * 4. FUNCTION OVERLOADING
+ * ==========================================
+ * This allows a function to be called in multiple ways with type safety.
+ */
+
+// Step 1: Define Overload Signatures (The "Rules")
 function combine(a: number, b: number): number;
 function combine(a: string, b: string): string;
 
-function combine(a: number | string, b: number | string): string | number {
-  if(typeof a === "number" && typeof b === "number") {
-    return a + b
-  } else if(typeof a === "string" && typeof b === "string") {
-    return `${a} ${b}`
-  } else {
-    throwError("Invalid Arguments")
+// Step 2: Implementation (Must be compatible with all signatures)
+function combine(a: any, b: any): any {
+  if (typeof a === "number" && typeof b === "number") {
+    return a + b;
+  } 
+  if (typeof a === "string" && typeof b === "string") {
+    return `${a} ${b}`;
   }
+  throwError("Invalid Arguments: Types must match (both numbers or both strings)");
 }
 
-console.log(combine(20, 40))    
-console.log(combine("HM", "Arslan"))
+console.log(combine(20, 40));       // Returns number: 60
+console.log(combine("HM", "Arslan")); // Returns string: "HM Arslan"
+// console.log(combine(20, "Arslan")); // ❌ Error: No overload matches this call.

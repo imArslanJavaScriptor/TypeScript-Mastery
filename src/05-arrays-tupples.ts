@@ -1,51 +1,64 @@
-// Arrays, Tuples
-// const fruits: string[] = ["Apple", "Mango"]
-// const numbers: number[] = [1,2,3,4]
+export {};
 
-// fruits.push(12) // arg of number is not allowed to set in parameter of string
-// numbers.push("Grapes")  // arg of string is not allowed to set in parameter of number
+/**
+ * ==========================================
+ * 1. ARRAYS & TYPE INFERENCE
+ * ==========================================
+ */
+// Explicitly typed array
+const fruits: string[] = ["Apple", "Mango"];
 
+// Union Type Array: Allows a mix of types
+const mixedArray: (string | number)[] = ["Pineapple", 200];
+mixedArray.push(300);    // ✅ Valid
+mixedArray.push("Guava"); // ✅ Valid
 
-// Type Inference
-// const fruits = ["Apple", "Mango"]
-// const numbers = [1,2,3,4]
-// fruits.push(20) // To ye err dega becuaqse is na khud sa dekh lia ke array ma sirf string form values ha.
-// Seedha Rule Yad rakho array bnate wqt ap jo datatype vales us ma add kr do un ke ilawa koi or vlaues ko add krne ki koshsih kro ga bad ma to err mile ga.
-// const multiTypeArray = ["PineApple", 200]
-
-// const strNumArray: (string | number)[] = ["Apple", "Mango", "Banana", "Oragne", 10, 20, 30, 40]
-// strNumArray.push(50)
-// strNumArray.push("Guava")
-// console.log(strNumArray)
-
-
+/**
+ * ==========================================
+ * 2. ARRAYS OF OBJECTS & READONLY
+ * ==========================================
+ */
 interface Person {
   firstName: string;
   lastName: string;
   age?: number;
 }
 
+// Array of objects following the Person interface
 const persons: Person[] = [
-  {firstName: "HM", lastName: "Arslan", age: 23},
-]
+  { firstName: "HM", lastName: "Arslan", age: 23 },
+];
 
-persons.push({firstName: "Mir", lastName: "Hadi", age: 20})
-console.log(persons)
+persons.push({ firstName: "Mir", lastName: "Hadi", age: 20 });
 
-const readOnlyPersons: readonly Person[] = [{firstName: "HM", lastName: "Arslan", age: 20}]
-console.log(readOnlyPersons)
+// readonly: Prevents any modification (push, pop, etc.) after initialization.
+// Great for configuration or constant data.
+const readOnlyPersons: readonly Person[] = [
+  { firstName: "HM", lastName: "Arslan", age: 20 }
+];
+// readOnlyPersons.push({ ... }); // ❌ Error: Property 'push' does not exist on type 'readonly Person[]'.
 
-// tuples
-// array with fixed size and types
-// Tuple ek array jaisa hota hai — but isme order aur type fixed hota hai.
-const myCustomTuple: [string, string, number] = ["Str1", "Str2", 100]
+/**
+ * ==========================================
+ * 3. TUPLES (Fixed Length & Order)
+ * ==========================================
+ * Tuples are strictly ordered. If the first element is a string, 
+ * you cannot put a number there.
+ */
 
-// RGB Color
-const color: [number, number, number] = [255, 0, 128]
+// Common use case: RGB Colors
+const color: [number, number, number] = [255, 0, 128];
 
-// User info
-const user: [string, number, boolean] = ["Arslan", 23, true]
-//                                          name    age  isAdmin
+// Common use case: User State (Similar to React's useState hook)
+const userState: [string, number, boolean] = ["Arslan", 23, true];
 
-// API response
-const response: [boolean, string] = [true, "Data fetched!"]
+// Common use case: HTTP Responses
+const httpResponse: [number, string] = [200, "Success"];
+
+/**
+ * ⚠️ THE TUPLE "GOTCHA" (Pushing to Tuples)
+ * Interestingly, TypeScript's basic Tuple does not stop .push() at runtime 
+ * due to how JavaScript arrays work. To fix this, use 'readonly'.
+ */
+const strictTuple: readonly [string, number] = ["ID", 101];
+// strictTuple.push(202); // ❌ Error: Property 'push' does not exist

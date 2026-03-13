@@ -1,25 +1,30 @@
-// import { Person } from "./my-interfaces";
+// 1. MODULE IMPORTS
+// In a real project, interfaces are often kept in a separate 'types' or 'interfaces' folder.
+// For this example, let's assume BasePerson is imported.
+import { Person as BasePerson } from "./my-interfaces";
 
-// IMP: type or interfaces ko ap seprate file ma bhi bna skte ho
-// Now ab usecase ye ha ki mujhe interface Person ma koi or cheez add krni ha so wo kr slta hu by extending the interface
-import { Person as BasePerson } from "./my-interfaces"; // For Extending Person Interface
+/**
+ * ==========================================
+ * 2. EXTENDING TYPES & INTERFACES
+ * ==========================================
+ */
 
+// OPTION A: Extending an Interface (Inheritance style)
 // interface Person extends BasePerson {
-//   heightInCM: string
+//   heightInCM: string;
 // }
 
-// interface ki trha hum type ko bhi extend kr skte ha.
-// Intresting Detail to notice mane a bhi type ko extent kia by assigning interface in type.
-// So Yes ye bhi Possible ha we can use interface in types in thsi way.
+// OPTION B: Using Type Intersection (&)
+// You can mix and match! You can intersect a Type with an Interface.
 type Person = BasePerson & {
   heightInCM: string;
+  isAthlete: boolean; // Added for variety
 };
 
 const person: Person = {
   firstName: "Arslan",
   lastName: "King",
   age: 22,
-  // address: "Lahore Punjab Pakistan"
   address: {
     city: "Lahore",
     state: "Punjab",
@@ -27,55 +32,38 @@ const person: Person = {
     zipCode: 54000,
   },
   heightInCM: "180 CM",
+  isAthlete: true,
 };
 
-console.log(person);
+console.log("Refined Person Object:", person);
 
-// Diffrence B/W type & interface
-// 1- type ko assign = kia jata ha and interface difrectly start hota ha.
-// 2- interface are usable with objects only and type ko ap arrays, function, objects kisi ke liye bhi use kro.
-// 3- interface ko 1 sa zyada mrtaba bhi create kr skta hu but type ko nhi dublicate identifier ka err dega.
+/**
+ * ==========================================
+ * 3. DECLARATION MERGING (Interface Only)
+ * ==========================================
+ */
 
-// type Person = {
-//   firstName: string,
-//   lastName: string,
-//   age?: number
-// }
+// Interfaces with the same name in the same scope automatically MERGE.
+// This is NOT possible with 'type'.
+interface User {
+  id: number;
+}
 
-// type Person = {
-//   address?: string,
-//   profession?: string,
-//   passion?: number
-// }
+interface User {
+  username: string;
+}
 
-// interface Person {
-//   firstName: string;
-//   lastName: string;
-//   age?: number;
-// }
+// 'finalUser' now requires BOTH id and username.
+const finalUser: User = {
+  id: 1,
+  username: "arslan_pro"
+};
 
-// interface Person {
-//   address?: {
-//     country: string;
-//     zipCode: number;
-//     city: string;
-//     state: string;
-//   };
-//   profession?: string;
-//   passion?: number;
-// }
-
-// const person: Person = {
-//   firstName: "Arslan",
-//   lastName: "King",
-//   age: 22,
-//   // address: "Lahore Punjab Pakistan"
-//   address: {
-//     city: "Lahore",
-//     state: "Punjab",
-//     country: "Pakistan",
-//     zipCode: 54000,
-//   },
-// };
-
-// console.log(person);
+/**
+ * ==========================================
+ * 4. TYPE ALIASES (Versatility)
+ * ==========================================
+ * Types can do things Interfaces cannot, like Unions or Aliasing primitives.
+ */
+type ID = string | number; // Union Type
+type Role = "admin" | "user" | "guest"; // Literal Union Type

@@ -1,25 +1,52 @@
-// any, unknown
+export {};
 
-// Type: any
-// let anyVariable: any;
-// anyVariable = "Good"
-// anyVariable = () => console.log("Where There");
-// anyVariable = 20
-// console.log(anyVariable.toFixed(3))
+/**
+ * ==========================================
+ * 1. THE 'any' TYPE (The "Escape Hatch")
+ * ==========================================
+ * Using 'any' effectively turns off the type checker. 
+ * It allows you to do anything, even things that will crash at runtime.
+ */
+let anyVariable: any;
 
-// Note:  Avoid to use any BCZ it curse the purpose of TypeSafety
+anyVariable = "Hello";
+anyVariable = 42.12345;
+anyVariable = () => console.log("I am a function");
 
-// Type: unknown
-let unknownVariable: unknown
-unknownVariable = 25
-// console.log(unknownVariable.toFixed(3))  unknown ke case ma ye mujhe directly allow nhi krega to perofrm this operation on it but operation perofrm ho jaiga. lekin ye mujhe err dega ke variable unknown type ka ha so ap kmaise is pr wo operfation perfrom kr rhe ho jo numbers pr perform krta ha. ye avhoi cheez ha so agr ab mujhe ye operatioon perofrm krn aha to mujhe check lga na prega. or agr real world [prokject ma mujhe aesa krn aha to agr ma sure ho ke specifc variable jsko mane unknown type di thi wo ab let suppose array hi hoga so ma uski type ko change krsta hu.
-if(typeof unknownVariable === "number") {
-  console.log(unknownVariable.toFixed(2))
+// ❌ DANGER: This compiles perfectly but might crash if anyVariable isn't a number.
+// If anyVariable was a function at this point, this would throw a runtime error.
+console.log(anyVariable.toFixed(3)); 
+
+/**
+ * ==========================================
+ * 2. THE 'unknown' TYPE (The "Safe Any")
+ * ==========================================
+ * 'unknown' is the type-safe counterpart of 'any'. 
+ * You can assign anything to it, but you CANNOT use it until 
+ * you prove what type it is (Type Refining/Narrowing).
+ */
+let unknownVariable: unknown;
+
+unknownVariable = 25;
+unknownVariable = "I am a string now";
+
+// ❌ Error: 'unknownVariable' is of type 'unknown'.
+// console.log(unknownVariable.toFixed(2)); 
+
+// ✅ Correct Way: Type Guarding (Narrowing)
+if (typeof unknownVariable === "number") {
+    // Inside this block, TS knows unknownVariable is definitely a number.
+    console.log(unknownVariable.toFixed(2));
 }
 
-let isQualified: boolean
-unknownVariable = true
-if(typeof unknownVariable === "boolean") {
-  isQualified = unknownVariable
-  console.log(isQualified)
-}
+/**
+ * ==========================================
+ * 3. TYPE ASSERTION (The "Trust Me" approach)
+ * ==========================================
+ * If you are 100% sure of the type (e.g., from an API), 
+ * you can use 'as' to cast it.
+ */
+let valueFromServer: unknown = "Professional TypeScript";
+let stringLength: number = (valueFromServer as string).length; 
+
+console.log(`Length is: ${stringLength}`);
