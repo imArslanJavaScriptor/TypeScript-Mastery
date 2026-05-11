@@ -1,4 +1,4 @@
-# 🚀 TypeScript Mastery
+# 🚀 TypeScript Learn Everything
 
 A complete TypeScript learning repository covering everything from **TypeScript fundamentals** to **advanced concepts**, built with practical examples and clean code structure.
 
